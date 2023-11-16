@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block titre %}
+    Exportation de données
+{% endblock %}
+
+{% block contenu %}
+    <h1>Exportation des données</h1>
+    <form method="post" action="{% url 'export' %}">
+        {% csrf_token %}
+        <label for="nombre_lignes">Nombre de lignes à exporter : </label>
+        <input type="number" name="nombre_lignes" value="10" min="1">
+        <input type="submit" value="Exporter">
+    </form>
+{% endblock  %}
+
+{% block footer %}
+{% endblock  %}

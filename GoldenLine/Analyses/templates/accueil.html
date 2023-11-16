@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block contenu %}
+    <h1>Systeme d'authentification</h1>
+
+    {% for message in messages %}
+        <strong>{{message}}</strong>
+    {% endfor %}
+
+
+    {% if user.is_authenticated %}
+        <h3>Bonjour {{user.username}} </h3>
+        {% if perms.auth.add_user %}
+            <button type="submit"><a href="/enregistrement">Enregistrer un utilisateur</a></button>
+        {% endif %}
+        {% if perms.auth.add_user %}
+            <button type="submit"><a href="/liste_utilisateurs">Liste des utilisateurs</a></button>
+        {% endif %}
+            <button type="submit"><a href="/deconnection">Se déconnecter</a></button>
+    {% else %}
+        <button type="submit"><a href="/connection">Se connecter</a></button>
+    {% endif %}
+{% endblock  %}

@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block contenu %}
+  <h2>Modifier l'utilisateur {{ utilisateur.username }}</h2>
+
+    {% for message in messages %}
+        <strong>{{message}}</strong>
+    {% endfor %}
+
+  <form method="post" action="{% url 'modifier_utilisateur' utilisateur.username %}">
+    {% csrf_token %}
+    <label for="utilisateur">Nom d'utilisateur :</label>
+    <input type="text" name="utilisateur" id="utilisateur" value="{{ utilisateur.username }}" required>
+    <br>
+    <label for="nom">Nom :</label>
+    <input type="text" name="nom" id="nom" value="{{ utilisateur.first_name }}" required>
+    <br>
+    <label for="prenom">Prénom :</label>
+    <input type="text" name="prenom" id="prenom" value="{{ utilisateur.last_name }}" required>
+    <br>
+    <label for="email">Email :</label>
+    <input type="email" name="email" id="email" value="{{ utilisateur.email }}" required>
+    <br>
+    <label for="mdp">Mot de passe :</label>
+    <input type="password" name="mdp" id="mdp">
+    <br>
+    <label for="admin">Administrateur :</label>
+    <input type="checkbox" name="admin" id="admin" {% if admin %}checked{% endif %}>
+    <br>
+    <label for="view_client">Autorisation de visualiser les analyses :</label>
+    <input type="checkbox" name="view_client" id="view_client" {% if permission_view_client %}checked{% endif %}>
+    <br>
+    <label for="view_collecte">Autorisation d'exporter la table collecte :</label>
+    <input type="checkbox" name="view_collecte" id="view_collecte" {% if permission_view_collecte %}checked{% endif %}>
+    <br>
+
+    <button type="submit">Enregistrer les modifications</button>
+  </form>
+{% endblock %}

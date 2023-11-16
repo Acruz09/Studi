@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block titre %}
+    Liste des Collectes
+{% endblock %}  
+
+{% block contenu %}
+    <h1>Tableau de bord</h1>
+    <h2>Graphiques sur les statistiques des dépenses clients</h2>
+
+    <div id="graphique1"></div>
+    <div id="graphique2"></div>
+{% endblock  %}
+
+{% block footer %}
+    <p>Pied de page</p>
+{% endblock  %}
+        
+{% block script %}
+    console.log({% for moyenne in moyennes %} {{ moyenne.moyenne_prix|floatformat:2 }}, {% endfor %});
+
+
+    Highcharts.chart('graphique1', {
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Dépenses du panier moyen en fonction de la catégorie socioprofessionnelle'
+        },
+        xAxis: {
+            categories: [
+                {% for moyenne in moyennes %}
+                    '{{ moyenne.categorie_socioprofessionnelle|safe }}', 
+                {% endfor %}
+            ],
+            crosshair: true,
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Montant des Dépenses (€)'
+            }
+        },
+        series: [{
+        name: 'Moyenne du Prix du panier',
+        data: [
+            {% for moyenne in moyennes %}
+                {{ moyenne.moyenne_prix|stringformat:".2f" }},
+            {% endfor %}
+        ]
+    }]
+    });
+
+    Highcharts.chart('graphique2', {
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Dépenses par catégorie en fonction de la catégorie socioprofessionnelle'
+        },
+        xAxis: {
+            categories: {{categorie_socioprofessionnelle|safe}},
+            crosshair: true,
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Montant des Dépenses (€)'
+            }
+        },
+        series: [
+            {% for categorie, montants in valeurs.items %}
+                {
+                    name: '{{ categorie }}',
+                    data: [
+                        {% for montant in montants %}
+                            {{ montant|stringformat:".2f" }},
+                        {% endfor %}
+                    ]
+                },
+            {% endfor %}
+        ]
+    });
+{% endblock  %}

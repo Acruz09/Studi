@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block contenu %}
+
+    <h4>Enregistrer un utilisateur</h4>
+
+    {% for message in messages %}
+        <strong>{{message}}</strong>
+    {% endfor %}
+
+    <form action="/enregistrement" method="post">
+        {% csrf_token %}
+        <label for="utilisateur">Nom d'utilisateur :</label>
+        <input type="text" name="utilisateur" id="utilisateur" placeholder="Entrer le nom d'utilisateur" required>
+        <br>
+        <label for="nom">Nom :</label>
+        <input type="text" name="nom" id="nom" placeholder="Entrer le nom" required>
+        <br>
+        <label for="prenom">Prénom :</label>
+        <input type="text" name="prenom" id="prenom" placeholder="Entrer le prénom" required>
+        <br>
+        <label for="email">Email :</label>
+        <input type="email" name="email" id="email" placeholder="Entrer l'email" required>
+        <br>
+        <label for="mdp">Mot de passe :</label>
+        <input type="password" name="mdp" id="mdp" placeholder="Entrer le mot de passe" required>
+        <br>
+        <label for="mdp2">Retaper le mot de passe :</label>
+        <input type="password" name="mdp2" id="mdp2" placeholder="Retaper le mot de passe" required>
+        <br>
+        <label for="admin">Administrateur :</label>
+        <input type="checkbox" name="admin" id="admin">
+        <br>
+        <label for="view_client">Autorisation de visualiser les analyses :</label>
+        <input type="checkbox" name="view_client" id="view_client">
+        <br>
+        <label for="view_collecte">autorisation d'exporter la table collecte :</label>
+        <input type="checkbox" name="view_collecte" id="view_collecte">
+        <br>
+
+        <button type="submit">Enregistrement</button>
+
+
+    </form>
+
+{% endblock  %}
