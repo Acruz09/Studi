@@ -26,8 +26,10 @@ SECRET_KEY = 'django-insecure-wm5j88@_a%lb3^%jkzyj3!f6&m48(mru6)kf=^avtqxa)g06@*
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
 
 # Application definition
 
@@ -78,7 +80,7 @@ WSGI_APPLICATION = 'GoldenLine.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'GoldenLine_Serv2',
+        'NAME': 'GoldenLine_Serv',
         'USER': 'postgres',
         'PASSWORD': 'ROOT',
         'HOST': 'localhost',
